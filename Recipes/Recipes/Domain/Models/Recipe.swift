@@ -32,4 +32,10 @@ struct Recipe: Identifiable, Equatable {
     self.details = details
     self.ingredients = ingredients
   }
+
+  // Total time in minutes prep + cooking
+  var totalTimeInMinutes: Int {
+    guard let details = details else { return 0 }
+    return details.prepTimeAsMinutes + details.cookTimeAsMinutes
+  }
 }
