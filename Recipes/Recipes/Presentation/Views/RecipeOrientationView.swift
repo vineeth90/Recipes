@@ -27,9 +27,9 @@ struct RecipeOrientationView: View {
     switch viewModel.viewState {
     case .loading:
       loadingView
-    case .recipes(let recipes):
+    case .loaded(let recipes, let selectedRecipe):
       if isPortrait {
-        RecipeDetailView(recipe: recipes.first)
+        RecipeDetailView(recipe: selectedRecipe)
       } else {
         RecipeGridView(recipes: recipes)
       }

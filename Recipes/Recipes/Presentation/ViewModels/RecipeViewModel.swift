@@ -13,13 +13,12 @@ final class RecipeViewModel: ObservableObject {
 
   public enum ViewState: Equatable {
     case loading
-    case recipes([Recipe])
+    case loaded(recipes: [Recipe], selectedRecipe: Recipe)
     case empty
     case error(String)
   }
 
   @Published private(set) var viewState: ViewState = .loading
-  var firstRecipe: Recipe?
 
   private let getRecipeUseCase: GetRecipesUseCase
   private let sortRecipeUseCase: SortRecipesUseCase
@@ -40,7 +39,11 @@ final class RecipeViewModel: ObservableObject {
     do {
       let fetchRecipes = try await getRecipeUseCase.getRecipes()
       let recipes = sortRecipeUseCase.sortByTime(recipes: fetchRecipes)
-      viewState = recipes.isEmpty ? .empty : .recipes(recipes)
+      if let selectedRecipe = recipes.first {
+        viewState = .loaded(recipes: recipes, selectedRecipe: selectedRecipe)
+      } else {
+        viewState = .empty
+      }
     } catch let error as RepositoryError {
       viewState = .error(error.localizedDescription)
     } catch {

@@ -42,11 +42,12 @@ final class RecipeViewModelTests: XCTestCase {
     await viewModel.loadRecipes()
 
     // Then
-    guard case .recipes(let recipes) = viewModel.viewState else {
-      return XCTFail("Expected recipes state, got \(viewModel.viewState)")
+    guard case .loaded(let recipes, let selectedRecipe) = viewModel.viewState else {
+      return XCTFail("Expected loaded state, got \(viewModel.viewState)")
     }
 
     XCTAssertEqual(recipes.map(\.title), ["Fast", "Medium", "Slow"])
+    XCTAssertEqual(selectedRecipe.title, "Fast")
   }
 
   func testLoadRecipes_whenRepositoryReturnsEmptyArray_setsEmptyState() async {
@@ -85,7 +86,7 @@ final class RecipeViewModelTests: XCTestCase {
 
   func testLoadRecipes_publishesRecipesState() async {
     // Given
-    let stateDidUpdate = expectation(description: "View state updates to recipes")
+    let stateDidUpdate = expectation(description: "View state updates to loaded")
     repository.result = .success([
       makeRecipe(title: "Fast", prepMinutes: 5, cookMinutes: 10)
     ])
@@ -94,8 +95,9 @@ final class RecipeViewModelTests: XCTestCase {
     viewModel.$viewState
       .dropFirst()
       .sink { state in
-        guard case .recipes(let recipes) = state else { return }
+        guard case .loaded(let recipes, let selectedRecipe) = state else { return }
         XCTAssertEqual(recipes.map(\.title), ["Fast"])
+        XCTAssertEqual(selectedRecipe.title, "Fast")
         stateDidUpdate.fulfill()
       }
       .store(in: &cancellables)
