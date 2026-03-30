@@ -11,16 +11,18 @@ final class RecipeViewModel: ObservableObject {
 
   // MARK: - Properties
 
-  @Published private(set) var recipes: [Recipe] = []
-  @Published private(set) var isLoading = false
-  @Published private(set) var errorMessage: String?
+  public enum ViewState: Equatable {
+    case loading
+    case recipes([Recipe])
+    case empty
+    case error(String)
+  }
+
+  @Published private(set) var viewState: ViewState = .loading
+  var firstRecipe: Recipe?
 
   private let getRecipeUseCase: GetRecipesUseCase
   private let sortRecipeUseCase: SortRecipesUseCase
-
-  var firstRecipe: Recipe? {
-    recipes.first
-  }
 
   // MARK: - Initialization
 
@@ -35,19 +37,16 @@ final class RecipeViewModel: ObservableObject {
   // MARK: - Methods
 
   func loadRecipes() async {
-    isLoading = true
-    errorMessage = nil
-
     do {
       let fetchRecipes = try await getRecipeUseCase.getRecipes()
-      recipes = sortRecipeUseCase.sortByTime(recipes: fetchRecipes)
+      let recipes = sortRecipeUseCase.sortByTime(recipes: fetchRecipes)
+      viewState = recipes.isEmpty ? .empty : .recipes(recipes)
     } catch let error as RepositoryError {
-      errorMessage = error.localizedDescription
+      viewState = .error(error.localizedDescription)
     } catch {
-      errorMessage = "An unexpected error occurred."
+      viewState = .error("An unexpected error occurred.")
     }
 
-    isLoading = false
   }
 
 }

@@ -16,19 +16,27 @@ struct RecipeOrientationView: View {
   }
 
   var body: some View {
-    Group {
-      if viewModel.isLoading {
-        loadingView
-      } else if let errorMessage = viewModel.errorMessage {
-        errorView(message: errorMessage)
-      } else if isPortrait {
-        RecipeDetailView(recipe: viewModel.firstRecipe)
-      } else {
-        RecipeGridView(recipes: viewModel.recipes)
-      }
-    }
+    contentView
     .task {
       await viewModel.loadRecipes()
+    }
+  }
+
+  @ViewBuilder
+  private var contentView: some View {
+    switch viewModel.viewState {
+    case .loading:
+      loadingView
+    case .recipes(let recipes):
+      if isPortrait {
+        RecipeDetailView(recipe: recipes.first)
+      } else {
+        RecipeGridView(recipes: recipes)
+      }
+    case .empty:
+      emptyView
+    case .error(let message):
+      errorView(message: message)
     }
   }
 
@@ -52,6 +60,16 @@ struct RecipeOrientationView: View {
         .foregroundColor(.secondary)
         .multilineTextAlignment(.center)
         .padding(.horizontal)
+    }
+  }
+
+  private var emptyView: some View {
+    VStack(alignment: .center, spacing: 16) {
+      Spacer()
+      Text("No recipe available")
+        .font(.headline)
+        .foregroundColor(.secondary)
+      Spacer()
     }
   }
 }

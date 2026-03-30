@@ -41,19 +41,7 @@ struct RecipeDetailView: View {
           IngredientsListView(ingredients: recipe.ingredients)
             .padding(.horizontal)
         }
-      } else {
-        emptyStateView
       }
-    }
-  }
-
-  private var emptyStateView: some View {
-    VStack(alignment: .center) {
-      Spacer()
-      Text("No recipe available")
-        .font(.title3)
-        .foregroundStyle(.secondary)
-      Spacer()
     }
   }
 }
