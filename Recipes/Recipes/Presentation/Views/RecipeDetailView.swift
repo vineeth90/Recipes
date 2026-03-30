@@ -24,10 +24,13 @@ struct RecipeDetailView: View {
             .font(.body)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 40)
-          RecipeImageView(url: recipe.thumbnailURL, altText: recipe.thumbnailAltText ?? "Recipe image")
+          RecipeImageView(url: recipe.thumbnailURL)
             .clipped()
             .frame(height: 250)
-//            .containerRelativeFrame(.horizontal)
+            .accessibilityElement()
+            .accessibilityAddTraits(.isImage)
+            .accessibilityLabel(recipe.thumbnailAltText ?? "Recipe image")
+
           Divider()
 
           if let details = recipe.details {
@@ -38,7 +41,19 @@ struct RecipeDetailView: View {
           IngredientsListView(ingredients: recipe.ingredients)
             .padding(.horizontal)
         }
+      } else {
+        emptyStateView
       }
+    }
+  }
+
+  private var emptyStateView: some View {
+    VStack(alignment: .center) {
+      Spacer()
+      Text("No recipe available")
+        .font(.title3)
+        .foregroundStyle(.secondary)
+      Spacer()
     }
   }
 }

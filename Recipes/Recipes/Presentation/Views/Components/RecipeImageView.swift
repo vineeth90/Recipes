@@ -8,7 +8,6 @@ import SwiftUI
 
 struct RecipeImageView: View {
     let url: URL?
-    let altText: String
 
     var body: some View {
         Group {
@@ -31,7 +30,6 @@ struct RecipeImageView: View {
                 placeholderView
             }
         }
-        .accessibilityLabel(altText)
     }
 
     private var loadingView: some View {

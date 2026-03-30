@@ -31,7 +31,7 @@ private struct RecipeCardView: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      RecipeImageView(url: recipe.thumbnailURL, altText: recipe.thumbnailAltText ?? "")
+      RecipeImageView(url: recipe.thumbnailURL)
         .frame(height: 140)
         .clipped()
 
