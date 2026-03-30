@@ -179,10 +179,6 @@ private extension LocalRecipeRepositoryTests {
             throw NSError(domain: "LocalRecipeRepositoryTests", code: 1)
         }
 
-        addTeardownBlock {
-            try? FileManager.default.removeItem(at: rootURL)
-        }
-
         return bundle
     }
 }
