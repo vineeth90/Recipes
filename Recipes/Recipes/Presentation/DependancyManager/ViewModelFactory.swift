@@ -5,7 +5,6 @@
 //  Created by Vineeth M on 30/3/2026.
 //
 import Foundation
-import SwiftUI
 
 final class ViewModelFactory {
 
@@ -15,7 +14,7 @@ final class ViewModelFactory {
 
   // MARK: - Initialization
 
-  init(recipeRepository: RecipeRepositoryProtocol = LocalRecipeRepository()) {
+  init(recipeRepository: RecipeRepositoryProtocol) {
     self.recipeRepository = recipeRepository
   }
 
@@ -30,15 +29,3 @@ final class ViewModelFactory {
 
 }
 
-// MARK: - Environment Key
-
-private struct ViewModelFactoryKey: EnvironmentKey {
-  static let defaultValue: ViewModelFactory = ViewModelFactory()
-}
-
-extension EnvironmentValues {
-  var viewModelFactory: ViewModelFactory {
-    get { self[ViewModelFactoryKey.self] }
-    set { self[ViewModelFactoryKey.self] = newValue }
-  }
-}

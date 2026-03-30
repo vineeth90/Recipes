@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct RecipesApp: App {
+    private let container = AppContainer()
+
     var body: some Scene {
         WindowGroup {
-          RecipeRootView()
+          RecipeRootView(factory: container.viewModelFactory)
         }
     }
 }

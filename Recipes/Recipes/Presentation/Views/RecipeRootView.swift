@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct RecipeRootView: View {
-  @Environment(\.viewModelFactory) private var factory
+  let factory: ViewModelFactory
 
   var body: some View {
     RecipeRootContentView(factory: factory)
