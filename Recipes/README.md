@@ -27,6 +27,7 @@ This separation keeps UI code independent from data loading details and allows t
 
 - The dependency setup is intentionally lightweight. `AppContainer` and `ViewModelFactory` give the app an explicit composition model without introducing a DI framework, but this would likely evolve into feature-specific builders as the app grows.
 - The current data source is local JSON only. This keeps the app deterministic and fast to test, but it does not yet address remote sync, caching, or offline invalidation policies.
+- The app currently uses sensible fallback defaults for missing recipe fields to keep the UI resilient, but some of those display decisions are made during data mapping rather than in a dedicated presentation formatting layer.
 - `ViewState` is intentionally compact. It makes the view layer easy to reason about, but more advanced UI behaviors such as incremental loading, refresh states, or partial failures would require expanding the state model.
 - Error handling is intentionally simple. Repository and presentation errors work for the current flow, but production code would benefit from richer domain error mapping and clearer user-facing error descriptions.
 - Orientation-specific presentation is implemented in a focused view rather than through a broader navigation architecture. That keeps the current requirement simple, but it would likely evolve if the product added deeper drill-down flows or split-view behavior on iPad.
@@ -47,6 +48,7 @@ The test strategy favors validating business behavior and key user-visible flows
 - Introduce app configuration management for environment-specific values such as base URLs, feature flags, and runtime settings.
 - Add an app coordinator or routing layer if navigation expands beyond the current single-flow experience.
 - Strengthen accessibility and localization support, especially around dynamic type and copy externalization.
+- Add more unit tests around missing fields, optional data, and fallback mapping behavior to further harden the JSON decoding and domain conversion flow.
 - Refine image loading and performance behavior with better caching, placeholders, and failure handling for production network conditions.
 
 ## Running the App

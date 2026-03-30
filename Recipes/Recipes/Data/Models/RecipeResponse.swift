@@ -12,7 +12,7 @@ struct RecipeResponse: Codable {
 }
 
 struct RecipeData: Codable {
-  let dynamicTitle: String
+  let dynamicTitle: String?
   let dynamicDescription: String?
   let dynamicThumbnail: String?
   let dynamicThumbnailAlt: String?
@@ -25,7 +25,7 @@ struct RecipeData: Codable {
     }
 
     return Recipe(
-      title: dynamicTitle,
+      title: dynamicTitle ?? "Untitled Recipe",
       description: dynamicDescription ?? "",
       thumbnailURL: thumbnailURL,
       thumbnailAltText: dynamicThumbnailAlt,
@@ -36,27 +36,32 @@ struct RecipeData: Codable {
 }
 
 struct RecipeDetailsData: Codable {
-  let amountLabel: String
-  let amountNumber: Int
-  let prepLabel: String
-  let prepTime: String
+  let amountLabel: String?
+  let amountNumber: Int?
+  let prepLabel: String?
+  let prepTime: String?
   let prepNote: String?
-  let cookingLabel: String
-  let cookingTime: String
-  let cookTimeAsMinutes: Int
-  let prepTimeAsMinutes: Int
+  let cookingLabel: String?
+  let cookingTime: String?
+  let cookTimeAsMinutes: Int?
+  let prepTimeAsMinutes: Int?
 
   func toDomain() -> RecipeDetails? {
-    RecipeDetails(
-      servesLabel: amountLabel,
-      servesAmount: String(amountNumber),
-      prepLabel: prepLabel,
-      prepTime: prepTime,
+    // Default values are assigned to the fields in domain model, to handle the optional fields in the Data model. This can be avoided once there is a defined API contract.
+    var servesAmount: String = "N/A"
+    if let amountNumber {
+      servesAmount = String(amountNumber)
+    }
+    return RecipeDetails(
+      servesLabel: amountLabel ?? "Serves",
+      servesAmount: servesAmount,
+      prepLabel: prepLabel ?? "Prep",
+      prepTime: prepTime ?? "N/A",
       prepNote: prepNote,
-      cookingLabel: cookingLabel,
-      cookingTime: cookingTime,
-      cookTimeAsMinutes: cookTimeAsMinutes,
-      prepTimeAsMinutes: prepTimeAsMinutes
+      cookingLabel: cookingLabel ?? "Cooking",
+      cookingTime: cookingTime ?? "N/A",
+      cookTimeAsMinutes: cookTimeAsMinutes ?? 0,
+      prepTimeAsMinutes: prepTimeAsMinutes ?? 0
     )
   }
 }

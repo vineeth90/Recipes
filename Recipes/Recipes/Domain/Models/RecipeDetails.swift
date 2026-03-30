@@ -14,6 +14,6 @@ struct RecipeDetails: Equatable {
   let prepNote: String?
   let cookingLabel: String
   let cookingTime: String
-  let cookTimeAsMinutes: Int
-  let prepTimeAsMinutes: Int
+  let cookTimeAsMinutes: Int?
+  let prepTimeAsMinutes: Int?
 }

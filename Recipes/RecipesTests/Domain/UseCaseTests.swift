@@ -77,6 +77,18 @@ final class UseCaseTests: XCTestCase {
     // Then
     XCTAssertEqual(sortedRecipes.map(\.title), ["Fast", "Medium", "Slow"])
   }
+
+  func testSortRecipesUseCasePlacesRecipesWithoutTimeAtEnd() {
+    // Given
+    let untimedRecipe = makeRecipe(title: "Untimed", details: nil)
+    let timedRecipe = makeRecipe(title: "Timed", prepMinutes: 5, cookMinutes: 10)
+
+    // When
+    let sortedRecipes = sortUseCase.sortByTime(recipes: [untimedRecipe, timedRecipe])
+
+    // Then
+    XCTAssertEqual(sortedRecipes.map(\.title), ["Timed", "Untimed"])
+  }
 }
 
 private extension UseCaseTests {

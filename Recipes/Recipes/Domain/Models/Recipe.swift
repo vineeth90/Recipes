@@ -33,9 +33,14 @@ struct Recipe: Identifiable, Equatable {
     self.ingredients = ingredients
   }
 
-  // Total time in minutes prep + cooking
-  var totalTimeInMinutes: Int {
-    guard let details = details else { return 0 }
-    return details.prepTimeAsMinutes + details.cookTimeAsMinutes
+  // Total time in minutes prep + cooking. This value cannot be calculated if either of the time is unavailable, so returns nil
+  var totalTimeInMinutes: Int? {
+    guard let details = details,
+          let prepTimeAsMinutes = details.prepTimeAsMinutes,
+          let cookTimeAsMinutes = details.cookTimeAsMinutes
+    else {
+      return nil
+    }
+    return prepTimeAsMinutes + cookTimeAsMinutes
   }
 }
