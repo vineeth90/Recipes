@@ -49,7 +49,7 @@ struct RecipeDetailsData: Codable {
   func toDomain() -> RecipeDetails? {
     RecipeDetails(
       servesLabel: amountLabel,
-      servesAmount: amountNumber,
+      servesAmount: String(amountNumber),
       prepLabel: prepLabel,
       prepTime: prepTime,
       prepNote: prepNote,

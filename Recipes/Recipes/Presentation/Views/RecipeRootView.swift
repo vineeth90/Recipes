@@ -13,11 +13,3 @@ struct RecipeRootView: View {
     RecipeOrientationView(viewModel: factory.makeRecipeViewModel())
   }
 }
-
-//private struct RecipeContentView: View {
-//  @StateObject var viewModel: RecipeViewModel
-//
-//  var body: some View {
-//    
-//  }
-//}

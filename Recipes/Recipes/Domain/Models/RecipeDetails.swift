@@ -8,7 +8,7 @@ import Foundation
 
 struct RecipeDetails: Equatable {
   let servesLabel: String
-  let servesAmount: Int
+  let servesAmount: String
   let prepLabel: String
   let prepTime: String
   let prepNote: String?
