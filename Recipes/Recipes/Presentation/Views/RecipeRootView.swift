@@ -10,6 +10,18 @@ struct RecipeRootView: View {
   @Environment(\.viewModelFactory) private var factory
 
   var body: some View {
-    RecipeOrientationView(viewModel: factory.makeRecipeViewModel())
+    RecipeRootContentView(factory: factory)
+  }
+}
+
+private struct RecipeRootContentView: View {
+  @StateObject private var viewModel: RecipeViewModel
+
+  init(factory: ViewModelFactory) {
+    _viewModel = StateObject(wrappedValue: factory.makeRecipeViewModel())
+  }
+
+  var body: some View {
+    RecipeOrientationView(viewModel: viewModel)
   }
 }
