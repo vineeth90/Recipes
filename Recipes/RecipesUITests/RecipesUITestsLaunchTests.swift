@@ -13,8 +13,20 @@ final class RecipesUITestsLaunchTests: XCTestCase {
         true
     }
 
+    override func setUp() {
+        super.setUp()
+    }
+
+    override func tearDown() {
+        super.tearDown()
+    }
+
     override func setUpWithError() throws {
         continueAfterFailure = false
+    }
+
+    override func tearDownWithError() throws {
+        try super.tearDownWithError()
     }
 
     @MainActor

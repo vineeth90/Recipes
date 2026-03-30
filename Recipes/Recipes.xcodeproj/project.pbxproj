@@ -29,15 +29,40 @@
 		85ED3BF52F7976DB00176D53 /* RecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		85E679C02F7A523800B4A7C3 /* Exceptions for "RecipesTests" folder in "Recipes" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/LocalRecipeRepositoryTests.swift,
+				Domain/UseCaseTests.swift,
+				Presentation/RecipeViewModelTests.swift,
+			);
+			target = 85ED3BDD2F7976D600176D53 /* Recipes */;
+		};
+		85E679C12F7A523800B4A7C3 /* Exceptions for "RecipesTests" folder in "RecipesTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/LocalRecipeRepositoryTests.swift,
+				Domain/UseCaseTests.swift,
+				Presentation/RecipeViewModelTests.swift,
+			);
+			target = 85ED3BEA2F7976DB00176D53 /* RecipesTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		85E679BC2F7A523800B4A7C3 /* RecipesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				85E679C02F7A523800B4A7C3 /* Exceptions for "RecipesTests" folder in "Recipes" target */,
+				85E679C12F7A523800B4A7C3 /* Exceptions for "RecipesTests" folder in "RecipesTests" target */,
+			);
+			path = RecipesTests;
+			sourceTree = "<group>";
+		};
 		85ED3BE02F7976D600176D53 /* Recipes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Recipes;
-			sourceTree = "<group>";
-		};
-		85ED3BEE2F7976DB00176D53 /* RecipesTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RecipesTests;
 			sourceTree = "<group>";
 		};
 		85ED3BF82F7976DB00176D53 /* RecipesUITests */ = {
@@ -76,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				85ED3BE02F7976D600176D53 /* Recipes */,
-				85ED3BEE2F7976DB00176D53 /* RecipesTests */,
+				85E679BC2F7A523800B4A7C3 /* RecipesTests */,
 				85ED3BF82F7976DB00176D53 /* RecipesUITests */,
 				85ED3BDF2F7976D600176D53 /* Products */,
 			);
@@ -108,6 +133,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				85E679BC2F7A523800B4A7C3 /* RecipesTests */,
 				85ED3BE02F7976D600176D53 /* Recipes */,
 			);
 			name = Recipes;
@@ -129,9 +155,6 @@
 			);
 			dependencies = (
 				85ED3BED2F7976DB00176D53 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				85ED3BEE2F7976DB00176D53 /* RecipesTests */,
 			);
 			name = RecipesTests;
 			packageProductDependencies = (

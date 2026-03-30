@@ -22,6 +22,7 @@ struct RecipeGridView: View {
       }
       .padding()
     }
+    .accessibilityIdentifier("recipeGrid.container")
     .background(Color(.systemGroupedBackground))
   }
 }
@@ -45,6 +46,7 @@ private struct RecipeCardView: View {
           .fontWeight(.semibold)
           .lineLimit(2)
           .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("recipeCard.title.\(recipe.title)")
           .frame(minHeight: 36, alignment: .top)
       }
       .padding(12)

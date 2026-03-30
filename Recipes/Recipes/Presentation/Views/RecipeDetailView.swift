@@ -18,11 +18,13 @@ struct RecipeDetailView: View {
             .fontWeight(.heavy)
             .multilineTextAlignment(.center)
             .accessibilityAddTraits(.isHeader)
+            .accessibilityIdentifier("recipeDetail.title")
             .padding(.horizontal, 40)
             .padding(.top, 20)
           Text(recipe.description)
             .font(.body)
             .multilineTextAlignment(.center)
+            .accessibilityIdentifier("recipeDetail.description")
             .padding(.horizontal, 40)
           RecipeImageView(url: recipe.thumbnailURL)
             .clipped()
@@ -43,6 +45,7 @@ struct RecipeDetailView: View {
         }
       }
     }
+    .accessibilityIdentifier("recipeDetail.container")
   }
 }
 
@@ -138,6 +141,7 @@ private struct IngredientsListView: View {
         .font(.title)
         .bold()
         .accessibilityAddTraits(.isHeader)
+        .accessibilityIdentifier("recipeDetail.ingredientsHeader")
       VStack(alignment: .leading, spacing: 12) {
         ForEach(ingredients) { ingredient in
           HStack(alignment: .top, spacing: 8) {
@@ -181,4 +185,3 @@ private struct IngredientsListView: View {
     )
   )
 }
-
